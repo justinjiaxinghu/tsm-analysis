@@ -57,7 +57,7 @@ d3.csv("LeagueofLegends.csv", function(csv) {
         var xScale = d3.scaleBand().domain(xDomain).range([0, 400, 800]).padding(0.4);
         var xAxis = d3.axisBottom().scale(xScale);
 
-        var yScale = d3.scaleLinear().domain([0, max + 3]).range([400, 0]);
+        var yScale = d3.scaleLinear().domain([0, 100]).range([400, 0]);
         var yAxis = d3.axisLeft().scale(yScale);
 
         chart = d3
@@ -70,22 +70,42 @@ d3.csv("LeagueofLegends.csv", function(csv) {
         //x axis
         chart
                         .append("g")
-                        .attr("transform", "translate(440,700)")
+                        .attr("class", "bottomAxis")
+                        .attr("transform", "translate(480,700)")
                         .call(xAxis)
                         .append("text")
                         .attr("class", "label")
-                        .attr("dy", ".71em")
                         .style("text-anchor", "end")
         //y axis
         chart
                         .append("g")
-                        .attr("transform", "translate(440, 300)")
+                        .attr("class", "leftAxis")
+                        .attr("transform", "translate(480, 300)")
                         .call(yAxis)
                         .append("text")
                         .attr("class", "label")
                         .attr("transform", "rotate(-90)")
                         .style("text-anchor", "end");
-
+        
+        chart
+                        .selectAll(".bar")
+                        .data(tsm_wr_map)
+                        .enter()
+                        .append("rect")
+                        .attr("class", "bar")
+                        .attr("fill", function (d) {
+                            return "rgb(" + 255 * (d.y / 100) + ",0," + 255 * (1 - d.y / 100) + ")";
+                        })
+                        .attr("x", function (d) {
+                            return xScale(d.x) + 480;
+                        })
+                        .attr("width", xScale.bandwidth())
+                        .attr("y", function(d) {
+                            return yScale(d.y) + 300;
+                        })
+                        .attr("height", function(d) {
+                            return height - yScale(d.y) - 400; 
+                        })
         
     }
 })
