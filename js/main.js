@@ -1,7 +1,7 @@
 var width = 1300;
 var height = 800;
 
-d3.csv("./data/LeagueofLegends.csv", function(csv) {
+d3.csv("../data/LeagueofLegends.csv", function(csv) {
     var testData = d3
                         .nest()
                         .key(function (d) {
@@ -105,6 +105,9 @@ d3.csv("./data/LeagueofLegends.csv", function(csv) {
                         })
                         .attr("height", function(d) {
                             return height - yScale(d.y) - 400; 
+                        })
+                        .on("click", function (d) {
+                            window.location.href = "/web/tsm_" + d.x + ".html";
                         })
         
     }
