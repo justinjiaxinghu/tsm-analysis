@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/justinjiaxinghu/tsm-analysis/issues"
   },
-  "homepage": "https://github.com/justinjiaxinghu/tsm-analysis#readme"
+  "homepage": "https://github.com/justinjiaxinghu/tsm-analysis#readme",
+  "dependencies": {
+    "@dogstudio/highway": "^2.2.1",
+    "gsap": "^3.5.1"
+  }
 }
