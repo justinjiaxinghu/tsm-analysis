@@ -87,6 +87,21 @@ d3.csv("../data/LeagueofLegends.csv", function(csv) {
                         .attr("class", "label")
                         .attr("transform", "rotate(-90)")
                         .style("text-anchor", "end");
+
+        chart
+                        .append("text")
+                        .attr("transform", "translate(" + (xScale("2015") + 380) + ", " + yScale(10) + "), rotate(-90)")
+                        .style("font-size", "18px")
+                        .text("Winrate %")
+                        .style("fill", "whitesmoke")
+
+
+        chart
+                        .append("text")
+                        .attr("transform", "translate(" + (xScale("2016") + 495) + ", " + yScale(-38) + ")")
+                        .style("font-size", "18px")
+                        .text("Year")
+                        .style("fill", "whitesmoke")
         
         var bars = chart
                         .selectAll(".bar")

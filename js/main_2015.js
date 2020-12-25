@@ -32,7 +32,6 @@ d3.csv("../data/LeagueofLegends.csv", function(csv) {
                         .object(csv);
     var tsm_2015 = testData["2015"];
     var tsm_2015_total = tsm_2015["TSM_LOSS"].length + tsm_2015["TSM_WIN"].length;
-    //var tsm_2015_wr = Math.round(tsm_2015["TSM_WIN"].length / tsm_2015_total * 100);
     
     var tsm_2015_win_games = testData["2015"]["TSM_WIN"];
     var tsm_2015_lose_games = testData["2015"]["TSM_LOSS"];
@@ -145,19 +144,21 @@ d3.csv("../data/LeagueofLegends.csv", function(csv) {
         }
     }
 
+    
     for (var key of champion_set) {
-        if (champion_loss_map.has(key)) {
-            // if (value + champion_loss_map.get(key) >= 10) {
+        if (champion_loss_map.has(key) && champion_win_map.has(key)) {
                 champion_wr_map.set(key, {winrate: ((champion_win_map.get(key)) / ((champion_win_map.get(key)) + champion_loss_map.get(key)) * 100), total: ((champion_win_map.get(key)) + champion_loss_map.get(key))});
-            // }
-        } else {
+        } else if (champion_win_map.has(key)) {
             champion_wr_map.set(key, {winrate: (100), total: ((champion_win_map.get(key)))});
+        } else {
+            champion_wr_map.set(key, {winrate: (0), total: ((champion_loss_map.get(key)))});
         }
     }
 
     var sorted_champion_wr_map = new Map([...champion_wr_map.entries()].sort((a,b) => b[1]["winrate"] - a[1]["winrate"]));
     console.log(sorted_champion_wr_map);
-
+    var array_from_map = Array.from(sorted_champion_wr_map);
+    console.log(array_from_map);
     // Wrap every letter in a span
     var textWrapper = document.querySelector('.ml12');
     textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
@@ -176,11 +177,95 @@ d3.csv("../data/LeagueofLegends.csv", function(csv) {
         duration: Infinity,
     });
 
+    generateGraph();
+    transitionFunc();
+
+    function generateGraph() {
+        var keys = sorted_champion_wr_map.keys();
+
+        var xDomain = Array.from(keys);
+        console.log(xDomain);
+        
+        var xScale = d3.scaleBand().domain(xDomain).range([0, 1200]).padding(0.1);
+
+        var xAxis = d3.axisBottom().scale(xScale);
+
+        var yScale = d3.scaleLinear().domain([0, 100]).range([400, 0]);
+        var yAxis = d3.axisLeft().scale(yScale);
+
+        chart = d3
+                        .select("#chart")
+                        .append("svg")
+                        .attr("width", width)
+                        .attr("height", height)
+                        .style("display", "block")
+                        .style("margin", "auto");
+        //x axis
+        chart
+                        .append("g")
+                        .attr("class", "bottomAxis")
+                        .attr("transform", "translate(80, 600)")
+                        .call(xAxis)
+                        .selectAll("text")
+                        .attr("class", "label")
+                        .style("text-anchor", "end")
+                        .attr("dy", "-.6em")
+                        .attr("dx", "-.6em")
+                        .attr("transform", "rotate(-90)");
+
+        //y-axis
+        chart
+                        .append("g")
+                        .attr("class", "leftAxis")
+                        .attr("transform", "translate(80, 200)")
+                        .call(yAxis)
+                        .append("text")
+                        .attr("class", "label")
+                        .attr("transform", "rotate(-90)")
+                        .style("text-anchor", "end");
 
 
+        chart
+                        .append("text")
+                        .attr("transform", "translate(" + (xScale("Xerath") + 15) + ", " + yScale(-10) + "), rotate(-90)")
+                        .style("font-size", "18px")
+                        .text("Winrate %")
+                        .style("fill", "whitesmoke")
+
+
+        chart
+                        .append("text")
+                        .attr("transform", "translate(" + (xScale("Irelia") + 50) + ", " + yScale(-70) + ")")
+                        .style("font-size", "18px")
+                        .text("Champion")
+                        .style("fill", "whitesmoke")
+
+        var bars = chart
+                        .selectAll(".bar")
+                        .data(array_from_map)
+                        .enter()
+                        .append("rect")
+                        .attr("class", "bar")
+                        .attr("fill", function (d) {
+                            return "rgb(" + 255 * (d[1]["winrate"] / 100) + ",0," + 255 * (d[1]["winrate"] / 100) + ")";
+                        })
+                        .attr("x", function (d) {
+                            return xScale(d[0]) + 80;
+                        })
+                        .attr("width", xScale.bandwidth())
+                        // .attr("y", yScale(0))
+                        // .attr("height", 0)
+                        // .transition()
+                        .attr("y", function(d) {
+                            return yScale(d[1]["winrate"]) + 200;
+                        })
+                        .attr("height", function(d) {
+                            return height - yScale(d[1]["winrate"]) - 400; 
+                        });
+    }
 });
 
-window.onload = () => {
+function transitionFunc()  {
     const transition_el = document.querySelector(".transition");
     const anchors = document.querySelectorAll("a");
 
@@ -193,7 +278,13 @@ window.onload = () => {
 
         anchor.addEventListener("click", e => {
             e.preventDefault();
-            var target = e.srcElement.parentElement.href["baseVal"];
+            var target;
+            if (e.target.id == "back") {
+                target = e.target.href;
+            } else {
+                target = e.srcElement.parentElement.href["baseVal"];
+            }
+            
 
             transition_el.classList.add("is-active");
 
