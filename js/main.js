@@ -1,5 +1,5 @@
 var width = 1300;
-var height = 800;
+var height = 600;
 
 d3.csv("../data/LeagueofLegends.csv", function(csv) {
     var testData = d3
@@ -72,7 +72,7 @@ d3.csv("../data/LeagueofLegends.csv", function(csv) {
         chart
                         .append("g")
                         .attr("class", "bottomAxis")
-                        .attr("transform", "translate(480,700)")
+                        .attr("transform", "translate(480,500)")
                         .call(xAxis)
                         .append("text")
                         .attr("class", "label")
@@ -81,7 +81,7 @@ d3.csv("../data/LeagueofLegends.csv", function(csv) {
         chart
                         .append("g")
                         .attr("class", "leftAxis")
-                        .attr("transform", "translate(480, 300)")
+                        .attr("transform", "translate(480, 100)")
                         .call(yAxis)
                         .append("text")
                         .attr("class", "label")
@@ -106,10 +106,10 @@ d3.csv("../data/LeagueofLegends.csv", function(csv) {
                         })
                         .attr("width", xScale.bandwidth())
                         .attr("y", function(d) {
-                            return yScale(d.y) + 300;
+                            return yScale(d.y) + 100;
                         })
                         .attr("height", function(d) {
-                            return height - yScale(d.y) - 400; 
+                            return height - yScale(d.y) - 200; 
                         });
     }
 })

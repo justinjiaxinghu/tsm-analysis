@@ -1,11 +1,16 @@
 var width = 1300;
 var height = 800;
+//most winningest champion
+//least winningest champion
+//average game time length
+//average win game time length
+//average loss game time length
 
 d3.csv("../data/LeagueofLegends.csv", function(csv) {
     var testData = d3
                         .nest()
                         .key(function (d) {
-                            return d.Year
+                            return d.Year;
                         })
                         .key(function (d) {
                             if (d.blueTeamTag == "TSM") {
@@ -25,28 +30,50 @@ d3.csv("../data/LeagueofLegends.csv", function(csv) {
                             }
                         })
                         .object(csv);
-    console.log(testData);
     var tsm_2015 = testData["2015"];
-    var tsm_2016 = testData["2016"];
-    var tsm_2017 = testData["2017"];
     console.log(tsm_2015);
-    console.log(tsm_2016);
-    console.log(tsm_2017);
     var tsm_2015_total = tsm_2015["TSM_LOSS"].length + tsm_2015["TSM_WIN"].length;
     var tsm_2015_wr = Math.round(tsm_2015["TSM_WIN"].length / tsm_2015_total * 100);
-    var tsm_2016_total = tsm_2016["TSM_LOSS"].length + tsm_2016["TSM_WIN"].length;
-    var tsm_2016_wr = Math.round(tsm_2016["TSM_WIN"].length / tsm_2016_total * 100);
-    var tsm_2017_total = tsm_2017["TSM_LOSS"].length + tsm_2017["TSM_WIN"].length;
-    var tsm_2017_wr = Math.round(tsm_2017["TSM_WIN"].length / tsm_2017_total * 100);
     console.log(tsm_2015_wr);
-    console.log(tsm_2016_wr);
-    console.log(tsm_2017_wr);
-    var tsm_wr_map = [];
-    tsm_wr_map.push({x : "2015", y : tsm_2015_wr});
-    tsm_wr_map.push({x : "2016", y : tsm_2016_wr});
-    tsm_wr_map.push({x : "2017", y : tsm_2017_wr});
-    console.log(tsm_wr_map);
-    var chart;
+    
+
+    // Wrap every letter in a span
+    var textWrapper = document.querySelector('.ml12');
+    textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+
+    anime.timeline({loop: true})
+    .add({
+        targets: '.ml12 .letter',
+        translateX: [40,0],
+        translateZ: 0,
+        opacity: [0,1],
+        easing: "easeOutExpo",
+        duration: 1200,
+        delay: (el, i) => 500 + 30 * i
+    })
+    .add({
+        duration: Infinity,
+    });
+
+    // Wrap every letter in a span
+    var textWrapper = document.querySelector('.ml13');
+    textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+
+    anime.timeline({loop: true})
+    .add({
+        targets: '.ml13 .letter',
+        translateX: [40,0],
+        translateZ: 0,
+        opacity: [0,1],
+        easing: "easeOutExpo",
+        duration: 1200,
+        delay: (el, i) => 500 + 30 * i
+    })
+    .add({
+        duration: Infinity,
+    });
+
+
 });
 
 window.onload = () => {
