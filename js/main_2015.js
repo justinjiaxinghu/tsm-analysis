@@ -47,75 +47,9 @@ d3.csv("../data/LeagueofLegends.csv", function(csv) {
     tsm_wr_map.push({x : "2017", y : tsm_2017_wr});
     console.log(tsm_wr_map);
     var chart;
-    generateGraph();
-    transitionFunc();
+});
 
-    function generateGraph() {
-
-        var max = Math.max(tsm_2015_wr, tsm_2016_wr, tsm_2017_wr);
-
-        var xDomain = ["2015", "2016", "2017"];
-        var xScale = d3.scaleBand().domain(xDomain).range([0, 400, 800]).padding(0.4);
-        var xAxis = d3.axisBottom().scale(xScale);
-
-        var yScale = d3.scaleLinear().domain([0, 100]).range([400, 0]);
-        var yAxis = d3.axisLeft().scale(yScale);
-
-        chart = d3
-                        .select("#chart")
-                        .append("svg")
-                        .attr("width", width)
-                        .attr("height", height)
-                        .style("display", "block")
-                        .style("margin", "auto");
-        //x axis
-        chart
-                        .append("g")
-                        .attr("class", "bottomAxis")
-                        .attr("transform", "translate(480,700)")
-                        .call(xAxis)
-                        .append("text")
-                        .attr("class", "label")
-                        .style("text-anchor", "end")
-        //y axis
-        chart
-                        .append("g")
-                        .attr("class", "leftAxis")
-                        .attr("transform", "translate(480, 300)")
-                        .call(yAxis)
-                        .append("text")
-                        .attr("class", "label")
-                        .attr("transform", "rotate(-90)")
-                        .style("text-anchor", "end");
-        
-        var bars = chart
-                        .selectAll(".bar")
-                        .data(tsm_wr_map)
-                        .enter()
-                        .append("a")
-                        .attr("href", function (d) {
-                            return "../web/tsm_" + d.x + ".html";
-                        })
-                        .append("rect")
-                        .attr("class", "bar")
-                        .attr("fill", function (d) {
-                            return "rgb(" + 255 * (d.y / 100) + ",0," + 255 * (1 - d.y / 100) + ")";
-                        })
-                        .attr("x", function (d) {
-                            return xScale(d.x) + 480;
-                        })
-                        .attr("width", xScale.bandwidth())
-                        .attr("y", function(d) {
-                            return yScale(d.y) + 300;
-                        })
-                        .attr("height", function(d) {
-                            return height - yScale(d.y) - 400; 
-                        });
-    }
-})
-
-function transitionFunc() {
-
+window.onload = () => {
     const transition_el = document.querySelector(".transition");
     const anchors = document.querySelectorAll("a");
 
@@ -138,3 +72,4 @@ function transitionFunc() {
         })
     }
 }
+
