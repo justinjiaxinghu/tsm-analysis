@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8"/> 
-        <link href="../style.css" type="text/css" rel="stylesheet" />
+        <link href="../tsm_subpage_style.css" type="text/css" rel="stylesheet" />
         <link href="../transitions.css" type="text/css" rel="stylesheet"/>
     </head>   
     <body>
@@ -11,12 +11,18 @@
             <div>
                 <div style="transform: translateY(20px); text-align: center; font-family: 'Courier New', Courier, monospace; font-size: x-large; color: whitesmoke;">
                     TSM LoL Winrate 2016
+                    <a href="./index.html" id = "back">[Back]</a>
+                </div>
+                <div style="display: flex; justify-content: center; transform: translateY(80px)">
+                    <h1 class="ml12">Overall Winrate Across All Champions: 69%</h1>
                 </div>
             </div>
+            <div id = "chart"></div>
         </div>
         
 
         <script src="https://d3js.org/d3.v4.min.js"></script>
-		<script type="text/javascript" src="../js/transition.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+		<script type="text/javascript" src="../js/main_2016.js"></script>	 
     </body>
 </html>

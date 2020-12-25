@@ -30,18 +30,20 @@ d3.csv("../data/LeagueofLegends.csv", function(csv) {
                             }
                         })
                         .object(csv);
-    var tsm_2015 = testData["2015"];
-    var tsm_2015_total = tsm_2015["TSM_LOSS"].length + tsm_2015["TSM_WIN"].length;
+    var tsm_2017 = testData["2017"];
+    var tsm_2017_total = tsm_2017["TSM_LOSS"].length + tsm_2017["TSM_WIN"].length;
     
-    var tsm_2015_win_games = testData["2015"]["TSM_WIN"];
-    var tsm_2015_lose_games = testData["2015"]["TSM_LOSS"];
+    var tsm_2017_win_games = testData["2017"]["TSM_WIN"];
+    var tsm_2017_lose_games = testData["2017"]["TSM_LOSS"];
     
+    console.log("winrate: " + Math.round(tsm_2017_win_games.length / tsm_2017_total * 100));
+
     var champion_set = new Set();
     var champion_win_map = new Map();
     var champion_loss_map = new Map();
     var champion_wr_map = new Map();
-    for (var i = 0; i < tsm_2015_win_games.length; i++) {
-        var curr = tsm_2015_win_games[i];
+    for (var i = 0; i < tsm_2017_win_games.length; i++) {
+        var curr = tsm_2017_win_games[i];
         var top, jg, mid, adc, supp;
         if (curr["blueTeamTag"] == "TSM") {
             top = curr["blueTopChamp"];
@@ -92,8 +94,8 @@ d3.csv("../data/LeagueofLegends.csv", function(csv) {
         }
     }
 
-    for (var i = 0; i < tsm_2015_lose_games.length; i++) {
-        var curr = tsm_2015_lose_games[i];
+    for (var i = 0; i < tsm_2017_lose_games.length; i++) {
+        var curr = tsm_2017_lose_games[i];
         var top, jg, mid, adc, supp;
         if (curr["blueTeamTag"] == "TSM") {
             top = curr["blueTopChamp"];
@@ -227,7 +229,7 @@ d3.csv("../data/LeagueofLegends.csv", function(csv) {
 
         chart
                         .append("text")
-                        .attr("transform", "translate(" + (xScale("Xerath") + 15) + ", " + yScale(-10) + "), rotate(-90)")
+                        .attr("transform", "translate(" + (xScale("Azir") + 15) + ", " + yScale(-10) + "), rotate(-90)")
                         .style("font-size", "18px")
                         .text("Winrate %")
                         .style("fill", "whitesmoke")
@@ -235,7 +237,7 @@ d3.csv("../data/LeagueofLegends.csv", function(csv) {
 
         chart
                         .append("text")
-                        .attr("transform", "translate(" + (xScale("Irelia") + 50) + ", " + yScale(-70) + ")")
+                        .attr("transform", "translate(" + (xScale("Vladimir") + 50) + ", " + yScale(-70) + ")")
                         .style("font-size", "18px")
                         .text("Champion")
                         .style("fill", "whitesmoke")

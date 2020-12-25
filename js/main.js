@@ -120,6 +120,11 @@ d3.csv("../data/LeagueofLegends.csv", function(csv) {
                             return xScale(d.x) + 480;
                         })
                         .attr("width", xScale.bandwidth())
+                        .attr("y", yScale(-25))
+                        .attr("height", 0)
+                        .transition()
+                        .delay(2000)
+                        .duration(2000)
                         .attr("y", function(d) {
                             return yScale(d.y) + 100;
                         })
