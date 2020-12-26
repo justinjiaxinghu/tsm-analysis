@@ -1,5 +1,9 @@
 # tsm-analysis
 
+---
+permalink: /index.html
+---
+
 a visualization of team solomid's professional league of legends winrates from 2015-2017 (NALCS spring/summer, IEM, MSI, Worlds) 
 
 made with JS and D3.
