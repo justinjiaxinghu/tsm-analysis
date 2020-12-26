@@ -328,7 +328,6 @@ d3.csv("./LeagueofLegends.csv", function(csv) {
                         .select("#inputbox")
                         .on("change", function() {
                             filterValue = this.value;
-                            console.log(filterValue);
                         });
 
         d3
@@ -337,7 +336,6 @@ d3.csv("./LeagueofLegends.csv", function(csv) {
                             chart
                                             .selectAll(".bar")
                                             .filter(function (d) {
-                                                console.log("filtering");
                                                 return d[1]["total"] < filterValue;
                                             })
                                             .transition()
