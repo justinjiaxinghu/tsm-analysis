@@ -322,6 +322,53 @@ d3.csv("./LeagueofLegends.csv", function(csv) {
                         .style("font-size", "13px")
                         .style("font-weight", "bold")
                         .attr("alignment-baseline","middle");
+
+        var filterValue = 0;
+        d3
+                        .select("#inputbox")
+                        .on("change", function() {
+                            filterValue = this.value;
+                            console.log(filterValue);
+                        });
+
+        d3
+                        .select("#filterButton")
+                        .on("click", function() {
+                            chart
+                                            .selectAll(".bar")
+                                            .filter(function (d) {
+                                                console.log("filtering");
+                                                return d[1]["total"] < filterValue;
+                                            })
+                                            .transition()
+                                            .duration(2000)
+                                            .attr("y", yScale(0) + 200)
+                                            .attr("height", 0);
+                        })
+        d3
+                        .select("#resetFilterButton")
+                        .on("click", function() {
+                            chart
+                                            .selectAll(".bar")
+                                            .transition()
+                                            .duration(2000)
+                                            .attr("fill", function (d) {
+                                                return "rgb(" + 255 * (1-(d[1]["winrate"] / 100)) + "," + 255 * (d[1]["winrate"] / 100) + ",0)";
+                                            })
+                                            .attr("y", function(d) {
+                                                if (d[1]["winrate"] == 0) {
+                                                    return yScale(0) + 198;
+                                                }
+                                                return yScale(d[1]["winrate"]) + 200;
+                                            })
+                                            .attr("height", function(d) {
+                                                if (d[1]["winrate"] == 0) {
+                                                    return height - yScale(0) - 399;
+                                                }
+                                                return height - yScale(d[1]["winrate"]) - 400; 
+                                            })
+                                            
+                        })
     }
 });
 
