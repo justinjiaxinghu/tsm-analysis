@@ -6,7 +6,7 @@ var height = 800;
 //average win game time length
 //average loss game time length
 
-d3.csv("../data/LeagueofLegends.csv", function(csv) {
+d3.csv("./LeagueofLegends.csv", function(csv) {
     var testData = d3
                         .nest()
                         .key(function (d) {
@@ -30,20 +30,20 @@ d3.csv("../data/LeagueofLegends.csv", function(csv) {
                             }
                         })
                         .object(csv);
-    var tsm_2017 = testData["2017"];
-    var tsm_2017_total = tsm_2017["TSM_LOSS"].length + tsm_2017["TSM_WIN"].length;
+    var tsm_2016 = testData["2016"];
+    var tsm_2016_total = tsm_2016["TSM_LOSS"].length + tsm_2016["TSM_WIN"].length;
     
-    var tsm_2017_win_games = testData["2017"]["TSM_WIN"];
-    var tsm_2017_lose_games = testData["2017"]["TSM_LOSS"];
+    var tsm_2016_win_games = testData["2016"]["TSM_WIN"];
+    var tsm_2016_lose_games = testData["2016"]["TSM_LOSS"];
     
-    console.log("winrate: " + Math.round(tsm_2017_win_games.length / tsm_2017_total * 100));
+    console.log("winrate: " + Math.round(tsm_2016_win_games.length / tsm_2016_total * 100));
 
     var champion_set = new Set();
     var champion_win_map = new Map();
     var champion_loss_map = new Map();
     var champion_wr_map = new Map();
-    for (var i = 0; i < tsm_2017_win_games.length; i++) {
-        var curr = tsm_2017_win_games[i];
+    for (var i = 0; i < tsm_2016_win_games.length; i++) {
+        var curr = tsm_2016_win_games[i];
         var top, jg, mid, adc, supp;
         if (curr["blueTeamTag"] == "TSM") {
             top = curr["blueTopChamp"];
@@ -94,8 +94,8 @@ d3.csv("../data/LeagueofLegends.csv", function(csv) {
         }
     }
 
-    for (var i = 0; i < tsm_2017_lose_games.length; i++) {
-        var curr = tsm_2017_lose_games[i];
+    for (var i = 0; i < tsm_2016_lose_games.length; i++) {
+        var curr = tsm_2016_lose_games[i];
         var top, jg, mid, adc, supp;
         if (curr["blueTeamTag"] == "TSM") {
             top = curr["blueTopChamp"];
@@ -229,7 +229,7 @@ d3.csv("../data/LeagueofLegends.csv", function(csv) {
 
         chart
                         .append("text")
-                        .attr("transform", "translate(" + (xScale("Azir") + 15) + ", " + yScale(-10) + "), rotate(-90)")
+                        .attr("transform", "translate(" + (xScale("Syndra") + 15) + ", " + yScale(-10) + "), rotate(-90)")
                         .style("font-size", "18px")
                         .style("font-family", "Courier New")
                         .text("Winrate %")
@@ -238,7 +238,7 @@ d3.csv("../data/LeagueofLegends.csv", function(csv) {
 
         chart
                         .append("text")
-                        .attr("transform", "translate(" + (xScale("Vladimir") + 50) + ", " + yScale(-70) + ")")
+                        .attr("transform", "translate(" + (xScale("Nami") + 50) + ", " + yScale(-70) + ")")
                         .style("font-size", "18px")
                         .style("font-family", "Courier New")
                         .text("Champion")
@@ -295,7 +295,7 @@ d3.csv("../data/LeagueofLegends.csv", function(csv) {
 
         chart
                         .append("text")
-                        .attr("x", xScale("Ekko"))
+                        .attr("x", xScale("Poppy"))
                         .attr("y", yScale(50))
                         .attr("id", "champName")
                         .text("")
@@ -307,7 +307,7 @@ d3.csv("../data/LeagueofLegends.csv", function(csv) {
         
         chart
                         .append("text")
-                        .attr("x", xScale("Ekko"))
+                        .attr("x", xScale("Poppy"))
                         .attr("y", yScale(45))
                         .attr("id", "totalGames")
                         .text("")
@@ -319,7 +319,7 @@ d3.csv("../data/LeagueofLegends.csv", function(csv) {
 
         chart
                         .append("text")
-                        .attr("x", xScale("Ekko"))
+                        .attr("x", xScale("Poppy"))
                         .attr("y", yScale(40))
                         .attr("id", "winrate")
                         .text("")

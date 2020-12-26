@@ -6,7 +6,7 @@ var height = 800;
 //average win game time length
 //average loss game time length
 
-d3.csv("../data/LeagueofLegends.csv", function(csv) {
+d3.csv("./LeagueofLegends.csv", function(csv) {
     var testData = d3
                         .nest()
                         .key(function (d) {

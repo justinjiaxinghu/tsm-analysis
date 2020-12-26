@@ -1,7 +1,7 @@
 var width = 1300;
 var height = 600;
 
-d3.csv("../data/LeagueofLegends.csv", function(csv) {
+d3.csv("./LeagueofLegends.csv", function(csv) {
     var testData = d3
                         .nest()
                         .key(function (d) {
@@ -109,7 +109,7 @@ d3.csv("../data/LeagueofLegends.csv", function(csv) {
                         .enter()
                         .append("a")
                         .attr("href", function (d) {
-                            return "../docs/tsm_" + d.x + ".html";
+                            return "./tsm_" + d.x + ".html";
                         })
                         .append("rect")
                         .attr("class", "bar")
