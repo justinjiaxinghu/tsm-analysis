@@ -109,7 +109,7 @@ d3.csv("../data/LeagueofLegends.csv", function(csv) {
                         .enter()
                         .append("a")
                         .attr("href", function (d) {
-                            return "../web/tsm_" + d.x + ".html";
+                            return "../docs/tsm_" + d.x + ".html";
                         })
                         .append("rect")
                         .attr("class", "bar")
