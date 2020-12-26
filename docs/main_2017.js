@@ -36,7 +36,6 @@ d3.csv("./LeagueofLegends.csv", function(csv) {
     var tsm_2017_win_games = testData["2017"]["TSM_WIN"];
     var tsm_2017_lose_games = testData["2017"]["TSM_LOSS"];
     
-    console.log("winrate: " + Math.round(tsm_2017_win_games.length / tsm_2017_total * 100));
 
     var champion_set = new Set();
     var champion_win_map = new Map();
@@ -158,9 +157,7 @@ d3.csv("./LeagueofLegends.csv", function(csv) {
     }
 
     var sorted_champion_wr_map = new Map([...champion_wr_map.entries()].sort((a,b) => b[1]["winrate"] - a[1]["winrate"]));
-    console.log(sorted_champion_wr_map);
     var array_from_map = Array.from(sorted_champion_wr_map);
-    console.log(array_from_map);
     // Wrap every letter in a span
     var textWrapper = document.querySelector('.ml12');
     textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
@@ -186,7 +183,6 @@ d3.csv("./LeagueofLegends.csv", function(csv) {
         var keys = sorted_champion_wr_map.keys();
 
         var xDomain = Array.from(keys);
-        console.log(xDomain);
         
         var xScale = d3.scaleBand().domain(xDomain).range([0, 1200]).padding(0.1);
 
