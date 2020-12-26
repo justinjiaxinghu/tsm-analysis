@@ -231,6 +231,7 @@ d3.csv("../data/LeagueofLegends.csv", function(csv) {
                         .append("text")
                         .attr("transform", "translate(" + (xScale("Azir") + 15) + ", " + yScale(-10) + "), rotate(-90)")
                         .style("font-size", "18px")
+                        .style("font-family", "Courier New")
                         .text("Winrate %")
                         .style("fill", "whitesmoke")
 
@@ -239,6 +240,7 @@ d3.csv("../data/LeagueofLegends.csv", function(csv) {
                         .append("text")
                         .attr("transform", "translate(" + (xScale("Vladimir") + 50) + ", " + yScale(-70) + ")")
                         .style("font-size", "18px")
+                        .style("font-family", "Courier New")
                         .text("Champion")
                         .style("fill", "whitesmoke")
 
@@ -257,15 +259,75 @@ d3.csv("../data/LeagueofLegends.csv", function(csv) {
                         .attr("width", xScale.bandwidth())
                         .attr("y", yScale(-50))
                         .attr("height", 0)
+                        .on("mouseover", function(d) {
+                            var champName = document.getElementById("champName");
+                            var totalGames = document.getElementById("totalGames");
+                            var winrate = document.getElementById("winrate");
+                            champName.textContent = "Champion Name: " + d[0];
+                            totalGames.textContent = "Total games played: " + d[1]["total"];
+                            winrate.textContent = "Winrate: " + d[1]["winrate"] + "%";
+                        })
+                        .on("mouseout", function (d) {
+                            var champName = document.getElementById("champName");
+                            var totalGames = document.getElementById("totalGames");
+                            var winrate = document.getElementById("winrate");
+                            champName.textContent = "";
+                            totalGames.textContent = "";
+                            winrate.textContent = "";
+                        })
+
+        bars
                         .transition()
                         .delay(2000)
                         .duration(2000)
                         .attr("y", function(d) {
+                            if (d[1]["winrate"] == 0) {
+                                return yScale(0) + 198;
+                            }
                             return yScale(d[1]["winrate"]) + 200;
                         })
                         .attr("height", function(d) {
+                            if (d[1]["winrate"] == 0) {
+                                return height - yScale(0) - 399;
+                            }
                             return height - yScale(d[1]["winrate"]) - 400; 
-                        });
+                        })
+
+        chart
+                        .append("text")
+                        .attr("x", xScale("Ekko"))
+                        .attr("y", yScale(50))
+                        .attr("id", "champName")
+                        .text("")
+                        .style("fill", "whitesmoke")
+                        .style("font-family", "Courier")
+                        .style("font-size", "13px")
+                        .style("font-weight", "bold")
+                        .attr("alignment-baseline","middle");
+        
+        chart
+                        .append("text")
+                        .attr("x", xScale("Ekko"))
+                        .attr("y", yScale(45))
+                        .attr("id", "totalGames")
+                        .text("")
+                        .style("fill", "whitesmoke")
+                        .style("font-family", "Courier New")
+                        .style("font-size", "13px")
+                        .style("font-weight", "bold")
+                        .attr("alignment-baseline","middle");
+
+        chart
+                        .append("text")
+                        .attr("x", xScale("Ekko"))
+                        .attr("y", yScale(40))
+                        .attr("id", "winrate")
+                        .text("")
+                        .style("fill", "whitesmoke")
+                        .style("font-family", "Courier New")
+                        .style("font-size", "13px")
+                        .style("font-weight", "bold")
+                        .attr("alignment-baseline","middle");
     }
 });
 
