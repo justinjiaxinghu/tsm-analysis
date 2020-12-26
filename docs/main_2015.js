@@ -246,7 +246,7 @@ d3.csv("./LeagueofLegends.csv", function(csv) {
                         .append("rect")
                         .attr("class", "bar")
                         .attr("fill", function (d) {
-                            return "rgb(" + 255 * (d[1]["winrate"] / 100) + ",0," + 255 * (d[1]["winrate"] / 100) + ")";
+                            return "rgb(" + 255 * (1-(d[1]["winrate"] / 100)) + "," + 255 * (d[1]["winrate"] / 100) + ",0)";
                         })
                         .attr("x", function (d) {
                             return xScale(d[0]) + 80;
